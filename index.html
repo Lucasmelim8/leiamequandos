@@ -1,0 +1,162 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row =>
+                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
+                );
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Leia-me Quando Quiser Sentir Nostalgia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      background-attachment: fixed;
+      background-color: #f5e7eb;
+    }
+    #intro-screen {
+      transition: opacity 0.5s ease;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+    }
+    #intro-screen::before {
+      content: '♥';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10rem;
+      color: rgba(216, 180, 254, 0.1);
+      z-index: 0;
+    }
+    #main-content {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .animate-pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
+  <div id="intro-screen" class="bg-gradient-to-b from-pink-100 to-purple-100 flex flex-col items-center justify-center">
+    <h1 class="text-3xl sm:text-4xl text-center font-parisienne text-gray-800 mb-6 px-4 animate-[fadeIn_1s_ease-out]" style="animation-delay: 0.2s;">Kaillany, está pronta para sentir nostalgia?</h1>
+    <button onclick="showContent()" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-lg font-parisienne py-3 px-8 rounded-full shadow-lg hover:from-pink-600 hover:to-purple-600 transition duration-300 animate-pulse z-20">Sim, estou pronta!</button>
+  </div>
+  <div id="main-content" class="w-full max-w-2xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden opacity-0 transform translate-y-10">
+    <div class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 sm:p-8 border-b-2 border-dashed border-pink-200">
+      <h1 class="text-3xl sm:text-4xl text-center font-parisienne text-gray-800 mb-4">Leia-me Quando Quiser Sentir Nostalgia</h1>
+      <p class="text-center text-gray-600 italic text-sm sm:text-base">Uma viagem pelos nossos momentos mais especiais...</p>
+    </div>
+    <div class="p-6 sm:p-8 space-y-10">
+      <div class="section flex flex-col items-center gap-4">
+        <img src="fotos/foto1.jpg" alt="Nosso primeiro encontro" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-pink-100">
+        <div class="text-center sm:text-left">
+          <h2 class="text-xl sm:text-2xl font-parisienne text-pink-600 mb-2">Nosso Primeiro Encontro</h2>
+          <p class="text-gray-700 text-sm sm:text-base">Lembra daquele dia? Eu estava tão nervoso, mas quando te vi sorrindo, tudo ficou mais leve. Foi o começo de tudo, e eu não fazia ideia de como você mudaria minha vida.</p>
+        </div>
+      </div>
+      <div class="section flex flex-col items-center gap-4">
+        <img src="fotos/foto2.jpg" alt="A viagem inesquecível" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-purple-100">
+        <div class="text-center sm:text-left">
+          <h2 class="text-xl sm:text-2xl font-parisienne text-purple-600 mb-2">A Viagem Inesquecível</h2>
+          <p class="text-gray-700 text-sm sm:text-base">As risadas, as aventuras, e até os momentos em que tudo deu errado... mas com você, até os perrengues viraram histórias que contamos rindo.</p>
+        </div>
+      </div>
+      <div class="section flex flex-col items-center gap-4">
+        <img src="fotos/foto3.jpg" alt="Nosso cantinho especial" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-pink-100">
+        <div class="text-center sm:text-left">
+          <h2 class="text-xl sm:text-2xl font-parisienne text-pink-600 mb-2">Nosso Cantinho Especial</h2>
+          <p class="text-gray-700 text-sm sm:text-base">Aquele lugar que só a gente conhece, onde compartilhamos sonhos, silêncios e tantos momentos que guardo no coração.</p>
+        </div>
+      </div>
+      <div class="section flex flex-col items-center gap-4">
+        <img src="fotos/foto4.jpg" alt="Hoje e sempre" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-purple-100">
+        <div class="text-center sm:text-left">
+          <h2 class="text-xl sm:text-2xl font-parisienne text-purple-600 mb-2">Hoje e Sempre</h2>
+          <p class="text-gray-700 text-sm sm:text-base">Cada dia com você é uma nova página do nosso livro. Mal posso esperar para escrever o resto da nossa história juntos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 sm:p-8 text-center border-t-2 border-dashed border-purple-200">
+      <p class="text-gray-600 italic text-sm sm:text-base">Te amo, hoje e sempre. Que essas memórias te tragam um sorriso sempre que sentir saudades.</p>
+    </div>
+  </div>
+  <script>
+    function showContent() {
+      const intro = document.getElementById('intro-screen');
+      const content = document.getElementById('main-content');
+      intro.style.opacity = '0';
+      intro.style.pointerEvents = 'none';
+      content.classList.remove('opacity-0', 'translate-y-10');
+      observeSections();
+    }
+
+    function observeSections() {
+      const sections = document.querySelectorAll('.section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 200);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      sections.forEach(section => observer.observe(section));
+    }
+
+    // Inicializa observação caso o conteúdo já esteja visível
+    window.addEventListener('load', () => {
+      if (!document.getElementById('intro-screen').classList.contains('hidden')) {
+        observeSections();
+      }
+    });
+  </script>
+</body>
+</html>
