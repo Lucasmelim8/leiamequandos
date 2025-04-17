@@ -62,6 +62,26 @@
       object-fit: cover;
       border-radius: 12px;
     }
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 213px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 0 auto;
+    }
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .carousel img.active {
+      opacity: 1;
+    }
   </style>
   <script defer>
     document.addEventListener('DOMContentLoaded', () => {
@@ -75,6 +95,7 @@
         audio.volume = 0.3;
         audio.play().catch(err => console.log('Erro ao tocar música:', err));
         observeSections();
+        startCarousel();
       };
 
       function observeSections() {
@@ -90,6 +111,24 @@
           });
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
+      }
+
+      function startCarousel() {
+        const carousel = document.querySelector('.carousel');
+        const images = carousel.querySelectorAll('img');
+        let currentIndex = 0;
+
+        function showNextImage() {
+          images[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % images.length;
+          images[currentIndex].classList.add('active');
+        }
+
+        images[0].classList.add('active');
+        let interval = setInterval(showNextImage, 3000);
+
+        carousel.addEventListener('mouseenter', () => clearInterval(interval));
+        carousel.addEventListener('mouseleave', () => interval = setInterval(showNextImage, 3000));
       }
 
       observeSections();
@@ -125,23 +164,27 @@
         </div>
       </div>
       <div class="section flex flex-col items-center gap-4">
-        <img src="fotos/foto3.jpg" alt="A viagem inesquecível" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-purple-100">
+        <div class="carousel">
+          <img src="Captures/foto3.jpg" alt="Momento 1">
+          <img src="Captures/foto4.jpg" alt="Momento 2">
+          <img src="Captures/foto5.jpg" alt="Momento 3">
+          <img src="Captures/foto6.jpg" alt="Momento 4">
+          <img src="Captures/foto7.jpg" alt="Momento 5">
+          <img src="Captures/foto8.jpg" alt="Momento 6">
+          <img src="Captures/foto9.jpg" alt="Momento 7">
+          <img src="Captures/foto10.jpg" alt="Momento 8">
+          <img src="Captures/foto11.jpg" alt="Momento 9">
+          <img src="Captures/foto12.jpg" alt="Momento 10">
+        </div>
         <div class="text-center sm:text-left">
-          <h2 class="text-xl sm:text-2xl font-parisienne text-purple-600 mb-2">A Viagem Inesquecível</h2>
-          <p class="text-gray-700 text-sm sm:text-base">As risadas, as aventuras, e até os momentos em que tudo deu errado... mas com você, até os perrengues viraram histórias que contamos rindo.</p>
+          <h2 class="text-xl sm:text-2xl font-parisienne text-purple-600 mb-2">E Muita Coisa Se Passou Depois Disso</h2>
+          <p class="text-gray-700 text-sm sm:text-base">Desde aquele açaí, minha Kaillany, vivemos tantas aventuras juntos. Cada risada, cada abraço, cada sonho compartilhado construiu nossa história. Foram viagens, momentos simples no sofá, olhares que diziam tudo sem palavras. Essas fotos capturam pedaços do nosso amor, dos dias que nos fizeram mais fortes e mais nós. Você é minha casa, meu sorriso, e cada lembrança contigo é um tesouro que guardo no coração.</p>
         </div>
       </div>
       <div class="section flex flex-col items-center gap-4">
-        <img src="fotos/foto4.jpg" alt="Nosso cantinho especial" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-pink-100">
+        <img src="Captures/foto13.jpg" alt="Hoje e sempre" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-pink-100">
         <div class="text-center sm:text-left">
-          <h2 class="text-xl sm:text-2xl font-parisienne text-pink-600 mb-2">Nosso Cantinho Especial</h2>
-          <p class="text-gray-700 text-sm sm:text-base">Aquele lugar que só a gente conhece, onde compartilhamos sonhos, silêncios e tantos momentos que guardo no coração.</p>
-        </div>
-      </div>
-      <div class="section flex flex-col items-center gap-4">
-        <img src="fotos/foto5.jpg" alt="Hoje e sempre" class="w-full h-56 sm:h-64 object-cover rounded-lg shadow-md border-2 border-purple-100">
-        <div class="text-center sm:text-left">
-          <h2 class="text-xl sm:text-2xl font-parisienne text-purple-600 mb-2">Hoje e Sempre</h2>
+          <h2 class="text-xl sm:text-2xl font-parisienne text-pink-600 mb-2">Hoje e Sempre</h2>
           <p class="text-gray-700 text-sm sm:text-base">Cada dia com você é uma nova página do nosso livro. Mal posso esperar para escrever o resto da nossa história juntos.</p>
         </div>
       </div>
