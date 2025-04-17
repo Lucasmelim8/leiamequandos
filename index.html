@@ -1,33 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row =>
-                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
-                );
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -46,16 +17,17 @@
       position: fixed;
       inset: 0;
       z-index: 10;
+      overflow: hidden;
     }
-    #intro-screen::before {
-      content: '♥';
+    .heart {
       position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 10rem;
-      color: rgba(216, 180, 254, 0.1);
-      z-index: 0;
+      color: rgba(216, 180, 254, 0.2);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
     #main-content {
       transition: transform 0.5s ease, opacity 0.5s ease;
@@ -80,10 +52,20 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    @media (max-width: 640px) {
+      .heart:nth-child(n+6) { display: none; }
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
   <div id="intro-screen" class="bg-gradient-to-b from-pink-100 to-purple-100 flex flex-col items-center justify-center">
+    <span class="heart" style="font-size: 1.5rem; top: 10%; left: 20%; animation-delay: 0s;">♥</span>
+    <span class="heart" style="font-size: 1rem; top: 15%; left: 70%; animation-delay: 1s;">♥</span>
+    <span class="heart" style="font-size: 2rem; top: 30%; left: 30%; animation-delay: 2s;">♥</span>
+    <span class="heart" style="font-size: 1.2rem; top: 40%; left: 80%; animation-delay: 3s;">♥</span>
+    <span class="heart" style="font-size: 1.8rem; top: 60%; left: 15%; animation-delay: 4s;">♥</span>
+    <span class="heart" style="font-size: 1.4rem; top: 70%; left: 60%; animation-delay: 5s;">♥</span>
+    <span class="heart" style="font-size: 1.6rem; top: 85%; left: 40%; animation-delay: 6s;">♥</span>
     <h1 class="text-3xl sm:text-4xl text-center font-parisienne text-gray-800 mb-6 px-4 animate-[fadeIn_1s_ease-out]" style="animation-delay: 0.2s;">Kaillany, está pronta para sentir nostalgia?</h1>
     <button onclick="showContent()" class="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-lg font-parisienne py-3 px-8 rounded-full shadow-lg hover:from-pink-600 hover:to-purple-600 transition duration-300 animate-pulse z-20">Sim, estou pronta!</button>
   </div>
@@ -126,13 +108,17 @@
       <p class="text-gray-600 italic text-sm sm:text-base">Te amo, hoje e sempre. Que essas memórias te tragam um sorriso sempre que sentir saudades.</p>
     </div>
   </div>
+  <audio id="background-music" src="musica.mp3" loop></audio>
   <script>
     function showContent() {
       const intro = document.getElementById('intro-screen');
       const content = document.getElementById('main-content');
+      const audio = document.getElementById('background-music');
       intro.style.opacity = '0';
       intro.style.pointerEvents = 'none';
       content.classList.remove('opacity-0', 'translate-y-10');
+      audio.volume = 0.3;
+      audio.play().catch(err => console.log('Erro ao tocar música:', err));
       observeSections();
     }
 
@@ -151,12 +137,7 @@
       sections.forEach(section => observer.observe(section));
     }
 
-    // Inicializa observação caso o conteúdo já esteja visível
     window.addEventListener('load', () => {
-      if (!document.getElementById('intro-screen').classList.contains('hidden')) {
-        observeSections();
-      }
+      observeSections();
     });
   </script>
-</body>
-</html>
