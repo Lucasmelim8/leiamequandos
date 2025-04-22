@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Um Abraço Pra Você ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta de cores suaves */
+            --bg-gradient-start: #fde3e8; /* Rosa bem clarinho */
+            --bg-gradient-end: #e6dee9;   /* Lilás bem clarinho */
+            --text-color: #5c474f;      /* Marrom rosado escuro */
+            --header-color: #d6336c;    /* Rosa vibrante */
+            --accent-color: #e88a9b;    /* Rosa médio */
+            --container-bg: rgba(255, 255, 255, 0.85); /* Branco com leve transparência */
+            --shadow-color: rgba(100, 80, 90, 0.15);
+        }
+
+        * {
+            box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif; /* Fonte mais amigável */
+            margin: 0;
+            padding: 20px 15px; /* Espaçamento nas laterais */
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); /* Fundo gradiente */
+            background-attachment: fixed; /* Gradiente fica fixo ao rolar */
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column; /* Organiza itens verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            min-height: 100vh;
+            overflow-x: hidden; /* Evita scroll horizontal */
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 25px 20px; /* Padding interno */
+            border-radius: 20px; /* Bordas mais arredondadas */
+            box-shadow: 0 6px 20px var(--shadow-color);
+            max-width: 500px; /* Largura máxima, bom para celular */
+            width: 100%; /* Ocupa a largura disponível até o max-width */
+            text-align: center;
+            backdrop-filter: blur(5px); /* Efeito de vidro fosco (funciona em navegadores modernos) */
+            animation: fadeIn 1s ease-out forwards; /* Animação de entrada */
+            opacity: 0; /* Começa invisível para animação */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--header-color);
+            font-size: clamp(1.8em, 6vw, 2.5em); /* Tamanho responsivo */
+            margin-bottom: 10px;
+            font-weight: 700; /* Negrito */
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: clamp(1.2em, 4.5vw, 1.5em);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 400; /* Peso normal */
+        }
+
+        p {
+            font-size: clamp(1em, 4vw, 1.15em); /* Tamanho responsivo */
+            line-height: 1.7; /* Espaçamento entre linhas */
+            margin-bottom: 18px;
+        }
+
+        strong {
+            color: var(--header-color); /* Destaca o texto com a cor principal */
+            font-weight: 700;
+        }
+
+        .highlight {
+             background-color: rgba(232, 138, 155, 0.1); /* Destaque sutil no fundo */
+             padding: 2px 6px;
+             border-radius: 5px;
+        }
+
+        .coracao-container {
+            margin: 25px 0;
+        }
+
+        .coracao-svg {
+            width: clamp(40px, 15vw, 60px); /* Tamanho responsivo */
+            height: auto;
+            fill: var(--header-color);
+            animation: pulse 2s infinite ease-in-out; /* Animação de pulsar */
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .lembretes {
+            background-color: rgba(230, 222, 233, 0.3); /* Fundo levemente diferente */
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: left; /* Alinha texto dos lembretes à esquerda */
+        }
+
+        .lembretes p {
+            margin-bottom: 10px;
+            font-size: clamp(0.9em, 3.5vw, 1em); /* Um pouco menor */
+        }
+        .lembretes strong {
+             color: var(--accent-color); /* Cor de destaque diferente */
+        }
+
+        .assinatura {
+            margin-top: 30px;
+            font-style: italic;
+            font-size: clamp(0.95em, 3.8vw, 1.1em);
+            color: var(--text-color);
+            font-weight: 700; /* Assinatura em negrito */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Para Kaillany,</h1>
+        <h2>Meu amor...</h2>
+
+        <p>
+            Às vezes, olhar para frente dá um nó na garganta, né? O futuro pode parecer uma neblina densa.
+            Mas eu estou aqui, segurando uma lanterna bem forte, <strong>só para você.</strong>
+        </p>
+
+        <p>
+            Quero que você <span class="highlight">sinta meu abraço</span> agora mesmo, mesmo que pela tela.
+            Um abraço que diz: "Calma, respira. Estamos juntos nessa aventura."
+        </p>
+
+        <div class="coracao-container">
+             <svg class="coracao-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+
+        <p>
+            Lembre-se sempre do quão incrível você é. Da sua <span class="highlight">força</span>,
+            da sua <span class="highlight">vontade de conseguir a coisas</span>,
+            e de como você ilumina meus dias.
+        </p>
+
+        <div class="lembretes">
+            <p><strong>Não esqueça:</strong></p>
+            <p>🌟 Você já venceu tantos desafios antes!</p>
+            <p>💖 Nosso amor é nosso porto seguro.</p>
+            <p>🤝 Qualquer passo, daremos juntos.</p>
+            <p>😊 Pense em todos os momentos que passamos juntos.</p>
+        </div>
+
+        <p>
+            O futuro? A gente desenha ele juntos, um dia de cada vez, com as cores que a gente escolher.
+            E se o medo bater, me chama. Estarei aqui para ouvir, abraçar e te lembrar que <strong>nosso amor é maior que qualquer incerteza.</strong>
+        </p>
+
+        <p class="assinatura">
+            Com todo o meu coração,<br>
+            Lucas
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('dblclick', function(event) {
+            event.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
