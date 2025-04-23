@@ -25,28 +25,28 @@
         .container {
             text-align: center;
             background: rgba(255, 240, 245, 0.95);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            max-width: 600px; /* Reduzido para melhor adaptação */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 90%;
+            max-width: 400px; /* Otimizado para telas de celular */
             position: relative;
             z-index: 1;
             animation: fadeIn 2s ease-in-out;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2em;
             color: #d81b60;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             animation: glow 3s ease-in-out infinite;
         }
 
         .poem-text {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #5d4037;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             opacity: 0;
             animation: slideIn 1.5s ease-in-out forwards;
             animation-delay: 0.5s;
@@ -54,11 +54,10 @@
 
         .video-wrapper {
             width: 100%;
-            max-width: 100%;
-            max-height: 60vh; /* Limita a altura máxima para caber na tela */
-            border-radius: 15px;
-            border: 3px solid #f48fb1;
-            margin-bottom: 20px;
+            aspect-ratio: 9 / 16; /* Proporção ideal para vídeos verticais de celular */
+            border-radius: 10px;
+            border: 2px solid #f48fb1;
+            margin-bottom: 15px;
             display: none;
             background: #000;
             overflow: hidden;
@@ -66,29 +65,27 @@
 
         video {
             width: 100%;
-            height: auto;
-            max-height: 60vh; /* Garante que o vídeo não exceda a tela */
-            object-fit: contain; /* Mantém proporção sem distorção */
+            height: 100%;
+            object-fit: cover; /* Preenche o contêiner, cortando bordas se necessário */
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1.5em;
+            padding: 10px 30px;
+            font-size: 1.2em;
             color: #fff;
             background: linear-gradient(45deg, #f06292, #ab47bc);
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
-            transform: translateY(-5px) scale(1.1);
+            transform: translateY(-3px) scale(1.05);
             background: linear-gradient(45deg, #ab47bc, #f06292);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         button:active {
@@ -107,11 +104,11 @@
 
         .particle {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: url('https://www.transparenttextures.com/patterns/hearts.png');
             background-size: cover;
-            opacity: 0.6;
+            opacity: 0.5;
             animation: float 8s infinite ease-in-out;
         }
 
@@ -121,9 +118,9 @@
         }
 
         @keyframes glow {
-            0% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); }
-            50% { text-shadow: 2px 2px 12px rgba(216, 27, 96, 0.7); }
-            100% { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); }
+            0% { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
+            50% { text-shadow: 1px 1px 8px rgba(216, 27, 96, 0.7); }
+            100% { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
         }
 
         @keyframes float {
@@ -132,15 +129,15 @@
         }
 
         @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(20px); }
+            0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 400px) {
             .container {
-                padding: 20px;
-                max-width: 90%;
+                padding: 15px;
+                max-width: 95%;
             }
 
             h1 {
@@ -148,20 +145,12 @@
             }
 
             .poem-text {
-                font-size: 1em;
-            }
-
-            .video-wrapper {
-                max-height: 50vh; /* Menor altura em telas pequenas */
-            }
-
-            video {
-                max-height: 50vh;
+                font-size: 0.9em;
             }
 
             button {
-                padding: 10px 30px;
-                font-size: 1.2em;
+                padding: 8px 25px;
+                font-size: 1em;
             }
         }
     </style>
@@ -205,7 +194,7 @@
 
         // Gerar partículas
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 15; i++) { // Reduzido para melhor desempenho em celulares
             const particle = document.createElement('div');
             particle.classList.add('particle');
             particle.style.left = `${Math.random() * 100}vw`;
