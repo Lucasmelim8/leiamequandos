@@ -25,10 +25,10 @@
         .container {
             text-align: center;
             background: rgba(255, 240, 245, 0.95);
-            padding: 40px;
+            padding: 30px;
             border-radius: 25px;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
+            max-width: 600px; /* Reduzido para melhor adaptação */
             width: 90%;
             position: relative;
             z-index: 1;
@@ -36,7 +36,7 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             color: #d81b60;
             margin-bottom: 15px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -44,7 +44,7 @@
         }
 
         .poem-text {
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: #5d4037;
             margin-bottom: 20px;
             opacity: 0;
@@ -53,24 +53,22 @@
         }
 
         .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Padrão 16:9, ajustado dinamicamente */
-            height: 0;
-            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            max-height: 60vh; /* Limita a altura máxima para caber na tela */
             border-radius: 15px;
             border: 3px solid #f48fb1;
             margin-bottom: 20px;
             display: none;
             background: #000;
+            overflow: hidden;
         }
 
         video {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: contain; /* Garante que o vídeo se ajuste sem distorção */
+            height: auto;
+            max-height: 60vh; /* Garante que o vídeo não exceda a tela */
+            object-fit: contain; /* Mantém proporção sem distorção */
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
@@ -97,7 +95,6 @@
             transform: translateY(0) scale(0.95);
         }
 
-        /* Partículas animadas */
         .particles {
             position: absolute;
             top: 0;
@@ -118,7 +115,6 @@
             animation: float 8s infinite ease-in-out;
         }
 
-        /* Animações */
         @keyframes fadeIn {
             0% { opacity: 0; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
@@ -140,29 +136,32 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Suporte para vídeos verticais (9:16) */
+        /* Responsividade */
         @media (max-width: 600px) {
-            .video-wrapper {
-                padding-bottom: 177.78%; /* Proporção 9:16 para vídeos verticais */
+            .container {
+                padding: 20px;
+                max-width: 90%;
             }
 
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
-            .container {
-                padding: 20px;
+            .poem-text {
+                font-size: 1em;
+            }
+
+            .video-wrapper {
+                max-height: 50vh; /* Menor altura em telas pequenas */
+            }
+
+            video {
+                max-height: 50vh;
             }
 
             button {
                 padding: 10px 30px;
                 font-size: 1.2em;
-            }
-        }
-
-        @media (min-width: 601px) {
-            .video-wrapper {
-                padding-bottom: 56.25%; /* Proporção 16:9 para vídeos horizontais */
             }
         }
     </style>
@@ -182,7 +181,6 @@
         <button onclick="startVideo()">Iniciar</button>
     </div>
 
-    <!-- Elemento de áudio para a música de fundo -->
     <audio id="backgroundMusic" loop>
         <source src="musica2.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
@@ -198,12 +196,12 @@
             videoWrapper.style.display = 'block';
             video.style.opacity = '1';
             video.play();
-            backgroundMusic.play(); // Inicia a música junto com o vídeo
+            backgroundMusic.play();
             button.style.display = 'none';
         }
 
         // Configurar volume da música de fundo
-        backgroundMusic.volume = 0.1; // Volume baixo para não sobrepor o vídeo
+        backgroundMusic.volume = 0.1;
 
         // Gerar partículas
         const particlesContainer = document.getElementById('particles');
@@ -215,16 +213,6 @@
             particle.style.animationDelay = `${Math.random() * 5}s`;
             particlesContainer.appendChild(particle);
         }
-
-        // Ajustar proporção do vídeo dinamicamente
-        video.addEventListener('loadedmetadata', () => {
-            const aspectRatio = video.videoWidth / video.videoHeight;
-            if (aspectRatio < 1) { // Vídeo vertical
-                videoWrapper.style.paddingBottom = '177.78%'; // 9:16
-            } else { // Vídeo horizontal
-                videoWrapper.style.paddingBottom = '56.25%'; // 16:9
-            }
-        });
     </script>
 </body>
 </html>
