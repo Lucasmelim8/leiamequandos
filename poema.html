@@ -29,14 +29,14 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 350px; /* Reduzido para telas de celular */
+            max-width: 400px;
             position: relative;
             z-index: 1;
             animation: fadeIn 2s ease-in-out;
         }
 
         h1 {
-            font-size: 1.8em;
+            font-size: 2em;
             color: #d81b60;
             margin-bottom: 10px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
@@ -44,7 +44,7 @@
         }
 
         .poem-text {
-            font-size: 0.9em;
+            font-size: 1em;
             color: #5d4037;
             margin-bottom: 15px;
             opacity: 0;
@@ -54,8 +54,7 @@
 
         .video-wrapper {
             width: 100%;
-            aspect-ratio: 9 / 16; /* Proporção para vídeos verticais */
-            max-height: 50vh; /* Reduz a altura vertical */
+            aspect-ratio: 9 / 16;
             border-radius: 10px;
             border: 2px solid #f48fb1;
             margin-bottom: 15px;
@@ -67,18 +66,18 @@
         video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Preenche o contêiner */
+            object-fit: cover;
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
 
         .love-message {
             display: none;
-            font-size: 1.6em;
+            font-size: 1.8em;
             color: #d81b60;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             background: rgba(255, 240, 245, 0.9);
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             position: absolute;
             top: 50%;
@@ -95,7 +94,7 @@
 
         button {
             padding: 10px 30px;
-            font-size: 1.1em;
+            font-size: 1.2em;
             color: #fff;
             background: linear-gradient(45deg, #f06292, #ab47bc);
             border: none;
@@ -162,25 +161,21 @@
             }
 
             h1 {
-                font-size: 1.6em;
+                font-size: 1.8em;
             }
 
             .poem-text {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
 
             .love-message {
-                font-size: 1.4em;
-                padding: 12px;
+                font-size: 1.5em;
+                padding: 15px;
             }
 
             button {
                 padding: 8px 25px;
                 font-size: 1em;
-            }
-
-            .video-wrapper {
-                max-height: 45vh; /* Ainda menor em telas pequenas */
             }
         }
     </style>
