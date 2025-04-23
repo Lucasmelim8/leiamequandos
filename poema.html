@@ -29,7 +29,7 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 400px;
+            max-width: 400px; /* Otimizado para telas de celular */
             position: relative;
             z-index: 1;
             animation: fadeIn 2s ease-in-out;
@@ -54,7 +54,7 @@
 
         .video-wrapper {
             width: 100%;
-            aspect-ratio: 9 / 16;
+            aspect-ratio: 9 / 16; /* Proporção ideal para vídeos verticais de celular */
             border-radius: 10px;
             border: 2px solid #f48fb1;
             margin-bottom: 15px;
@@ -66,30 +66,9 @@
         video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Preenche o contêiner, cortando bordas se necessário */
             opacity: 0;
             transition: opacity 1s ease-in-out;
-        }
-
-        .love-message {
-            display: none;
-            font-size: 1.8em;
-            color: #d81b60;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 240, 245, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .love-message.show {
-            display: block;
-            opacity: 1;
         }
 
         button {
@@ -154,6 +133,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* Ajustes para telas muito pequenas */
         @media (max-width: 400px) {
             .container {
                 padding: 15px;
@@ -166,11 +146,6 @@
 
             .poem-text {
                 font-size: 0.9em;
-            }
-
-            .love-message {
-                font-size: 1.5em;
-                padding: 15px;
             }
 
             button {
@@ -191,7 +166,6 @@
                 <source src="Captures/video.mp4" type="video/mp4">
                 Seu navegador não suporta o elemento de vídeo.
             </video>
-            <div class="love-message" id="loveMessage">Te amo para sempre!</div>
         </div>
         <button onclick="startVideo()">Iniciar</button>
     </div>
@@ -204,7 +178,6 @@
     <script>
         const video = document.getElementById('romanticVideo');
         const videoWrapper = document.getElementById('videoWrapper');
-        const loveMessage = document.getElementById('loveMessage');
         const button = document.querySelector('button');
         const backgroundMusic = document.getElementById('backgroundMusic');
 
@@ -216,18 +189,12 @@
             button.style.display = 'none';
         }
 
-        // Exibir mensagem quando o vídeo terminar
-        video.addEventListener('ended', () => {
-            video.style.display = 'none';
-            loveMessage.classList.add('show');
-        });
-
         // Configurar volume da música de fundo
         backgroundMusic.volume = 0.1;
 
         // Gerar partículas
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 15; i++) { // Reduzido para melhor desempenho em celulares
             const particle = document.createElement('div');
             particle.classList.add('particle');
             particle.style.left = `${Math.random() * 100}vw`;
